@@ -7,7 +7,12 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "PRICES")
+@Table(
+        name = "PRICES",
+        indexes = {
+                @Index(name = "idx_product_brand_dates", columnList = "productId, brandId, startDate, endDate")
+        }
+)
 @Getter
 @NoArgsConstructor
 public class PriceEntity {
