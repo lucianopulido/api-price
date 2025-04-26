@@ -19,11 +19,9 @@ import static com.inditex.apiprice.infrastructure.util.MessageError.PRICE_NOT_FO
 public class PriceUseCaseImpl implements PriceUseCase {
 
     private final PriceRepositoryPort repository;
-    private final PriceMapper mapper;
 
-    public PriceUseCaseImpl(PriceRepositoryPort repository, PriceMapper mapper) {
+    public PriceUseCaseImpl(PriceRepositoryPort repository) {
         this.repository = repository;
-        this.mapper = mapper;
     }
 
     @Override
@@ -32,7 +30,7 @@ public class PriceUseCaseImpl implements PriceUseCase {
 
         return repository.findPrices(productId, brandId, applicationDate).stream()
                 .max(Comparator.comparingInt(Price::getPriority))
-                .map(mapper::toResponse)
+                .map(PriceMapper::toResponse)
                 .orElseThrow(() -> {
                     log.warn("PriceUseCaseImpl::findApplicablePrice Price not found for productId={}, brandId={}, applicationDate={}", productId, brandId, applicationDate);
                     return new PriceNotFoundException(PRICE_NOT_FOUND);
