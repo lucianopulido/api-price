@@ -5,10 +5,13 @@ import com.inditex.apiprice.application.mapper.PriceMapper;
 import com.inditex.apiprice.domain.model.Price;
 import com.inditex.apiprice.domain.port.in.PriceUseCase;
 import com.inditex.apiprice.domain.port.out.PriceRepositoryPort;
+import com.inditex.apiprice.infrastructure.exception.PriceNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.Comparator;
+
+import static com.inditex.apiprice.infrastructure.util.MessageError.PRICE_NOT_FOUND;
 
 @Service
 public class PriceUseCaseImpl implements PriceUseCase {
@@ -26,6 +29,6 @@ public class PriceUseCaseImpl implements PriceUseCase {
         return repository.findPrices(productId, brandId, applicationDate).stream()
                 .max(Comparator.comparingInt(Price::getPriority))
                 .map(mapper::toResponse)
-                .orElseThrow(() -> new RuntimeException("No price found for the given parameters."));
+                .orElseThrow(() -> new PriceNotFoundException(PRICE_NOT_FOUND));
     }
 }
