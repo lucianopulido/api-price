@@ -8,7 +8,6 @@ import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Component
 public class PriceDatabaseAdapter implements PriceRepositoryPort {
@@ -24,6 +23,6 @@ public class PriceDatabaseAdapter implements PriceRepositoryPort {
         return priceJpaRepository.findByProductIdAndBrandIdAndStartDateLessThanEqualAndEndDateGreaterThanEqual(productId, brandId, applicationDate, applicationDate)
                 .stream()
                 .map(PriceEntityMapper::toDomain)
-                .collect(Collectors.toList());
+                .toList();
     }
 }
