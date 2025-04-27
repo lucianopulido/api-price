@@ -140,3 +140,9 @@ Estas configuraciones están pensadas exclusivamente para el entorno de desarrol
 
 ---
 
+## 📄 Documentación Swagger (OpenAPI)
+Se incorporó Swagger UI usando springdoc-openapi 2.8.6 para documentar automáticamente los endpoints REST.
+Esto permite visualizar y probar la API desde http://localhost:8080/swagger-ui.html.
+
+
+
