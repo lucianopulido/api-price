@@ -1,10 +1,11 @@
 package com.inditex.apiprice.infrastructure.adapter.in.controller;
 
-import com.inditex.apiprice.application.dto.response.PriceResponse;
+import com.inditex.apiprice.infrastructure.dto.response.PriceResponse;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.MethodOrderer;
+import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
-import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,20 +36,28 @@ class PriceControllerIntegrationTest {
             "2020-06-15T10:00:00, 35455, 1, 3, 30.50",
             "2020-06-16T21:00:00, 35455, 1, 4, 38.95"
     })
-    @DisplayName("Integration Test: Validate different price responses based on date, product and brand")
-    void when_requestingPrice_then_expectedResult(String applicationDate, Long productId, Long brandId, Integer expectedPriceList, BigDecimal expectedPrice) {
+    @DisplayName("Integration Test: Validate full price response for given params")
+    @Order(1)
+    void when_requestingPrice_then_allFieldsAreValid(String applicationDate, Long productId, Long brandId, Integer expectedPriceList, BigDecimal expectedPrice) {
         String url = String.format("/api/v1/prices?productId=%d&brandId=%d&applicationDate=%s", productId, brandId, applicationDate);
 
         ResponseEntity<PriceResponse> response = restTemplate.getForEntity(url, PriceResponse.class);
 
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
         assertThat(response.getBody()).isNotNull();
-        assertThat(response.getBody().getPriceList()).isEqualTo(expectedPriceList);
-        assertThat(response.getBody().getPrice()).isEqualByComparingTo(expectedPrice);
+
+        PriceResponse body = response.getBody();
+        assertThat(body.getProductId()).isEqualTo(productId);
+        assertThat(body.getBrandId()).isEqualTo(brandId);
+        assertThat(body.getPriceList()).isEqualTo(expectedPriceList);
+        assertThat(body.getPrice()).isEqualByComparingTo(expectedPrice);
+        assertThat(body.getStartDate()).isNotNull();
+        assertThat(body.getEndDate()).isNotNull();
     }
 
     @Test
     @DisplayName("Integration Test: Should return 404 when no price is found")
+    @Order(2)
     void when_noPriceFound_then_return404() {
         String url = "/api/v1/prices?productId=99999&brandId=1&applicationDate=2020-06-14T10:00:00";
 
@@ -60,8 +69,9 @@ class PriceControllerIntegrationTest {
 
     @Test
     @DisplayName("Integration Test: Should return 400 when missing parameters")
+    @Order(3)
     void when_missingParameters_then_return400() {
-        String url = "/api/v1/prices?productId=35455&brandId=1"; // falta applicationDate
+        String url = "/api/v1/prices?productId=35455&brandId=1";
 
         ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);
 
@@ -71,6 +81,7 @@ class PriceControllerIntegrationTest {
 
     @Test
     @DisplayName("Integration Test: Should return 400 when parameter type is invalid")
+    @Order(4)
     void when_invalidParameterType_then_return400() {
         String url = "/api/v1/prices?productId=invalid&brandId=1&applicationDate=2020-06-14T10:00:00";
 

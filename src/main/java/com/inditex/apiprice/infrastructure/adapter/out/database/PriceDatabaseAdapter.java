@@ -7,7 +7,7 @@ import com.inditex.apiprice.infrastructure.mapper.PriceEntityMapper;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
-import java.util.List;
+import java.util.Optional;
 
 @Component
 public class PriceDatabaseAdapter implements PriceRepositoryPort {
@@ -19,10 +19,9 @@ public class PriceDatabaseAdapter implements PriceRepositoryPort {
     }
 
     @Override
-    public List<Price> findPrices(Long productId, Long brandId, LocalDateTime applicationDate) {
-        return priceJpaRepository.findByProductIdAndBrandIdAndStartDateLessThanEqualAndEndDateGreaterThanEqual(productId, brandId, applicationDate, applicationDate)
-                .stream()
-                .map(PriceEntityMapper::toDomain)
-                .toList();
+    public Optional<Price> findPrice(Long productId, Long brandId, LocalDateTime applicationDate) {
+        return Optional.ofNullable(
+                this.priceJpaRepository.findTopPrice(productId, brandId, applicationDate)
+        ).map(PriceEntityMapper::toDomain);
     }
 }

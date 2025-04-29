@@ -1,5 +1,6 @@
 package com.inditex.apiprice.infrastructure.exception;
 
+import com.inditex.apiprice.domain.exception.PriceNotFoundException;
 import com.inditex.apiprice.infrastructure.exception.dto.ErrorResponse;
 import com.inditex.apiprice.infrastructure.util.MessageError;
 import lombok.extern.slf4j.Slf4j;

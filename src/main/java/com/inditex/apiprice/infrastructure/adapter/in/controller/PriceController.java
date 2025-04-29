@@ -1,6 +1,6 @@
 package com.inditex.apiprice.infrastructure.adapter.in.controller;
 
-import com.inditex.apiprice.application.dto.response.PriceResponse;
+import com.inditex.apiprice.infrastructure.dto.response.PriceResponse;
 import com.inditex.apiprice.domain.port.in.PriceUseCase;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -35,6 +35,6 @@ public class PriceController {
             @Parameter(description = "Brand ID", example = "1", required = true)
             @RequestParam Long brandId
     ) {
-        return ResponseEntity.ok(priceUseCase.findApplicablePrice(applicationDate, productId, brandId));
+        return ResponseEntity.ok(this.priceUseCase.findApplicablePrice(applicationDate, productId, brandId));
     }
 }

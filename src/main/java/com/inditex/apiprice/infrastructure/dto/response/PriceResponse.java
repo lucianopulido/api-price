@@ -1,4 +1,4 @@
-package com.inditex.apiprice.application.dto.response;
+package com.inditex.apiprice.infrastructure.dto.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

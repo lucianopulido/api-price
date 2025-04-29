@@ -1,6 +1,6 @@
 package com.inditex.apiprice.application.mapper;
 
-import com.inditex.apiprice.application.dto.response.PriceResponse;
+import com.inditex.apiprice.infrastructure.dto.response.PriceResponse;
 import com.inditex.apiprice.domain.model.Price;
 
 public final class PriceMapper {

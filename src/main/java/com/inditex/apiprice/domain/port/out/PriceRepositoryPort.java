@@ -1,9 +1,10 @@
 package com.inditex.apiprice.domain.port.out;
 
 import com.inditex.apiprice.domain.model.Price;
+
 import java.time.LocalDateTime;
-import java.util.List;
+import java.util.Optional;
 
 public interface PriceRepositoryPort {
-    List<Price> findPrices(Long productId, Long brandId, LocalDateTime applicationDate);
+    Optional<Price> findPrice(Long productId, Long brandId, LocalDateTime applicationDate);
 }

@@ -1,7 +1,7 @@
 package com.inditex.apiprice.domain.port.in;
 
 
-import com.inditex.apiprice.application.dto.response.PriceResponse;
+import com.inditex.apiprice.infrastructure.dto.response.PriceResponse;
 
 import java.time.LocalDateTime;
 
