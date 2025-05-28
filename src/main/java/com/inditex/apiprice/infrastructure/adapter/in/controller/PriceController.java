@@ -1,13 +1,17 @@
 package com.inditex.apiprice.infrastructure.adapter.in.controller;
 
-import com.inditex.apiprice.infrastructure.dto.response.PriceResponse;
 import com.inditex.apiprice.domain.port.in.PriceUseCase;
+import com.inditex.apiprice.infrastructure.dto.response.PriceResponse;
+import com.inditex.apiprice.infrastructure.mapper.PriceMapper;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.time.LocalDateTime;
 
@@ -35,6 +39,6 @@ public class PriceController {
             @Parameter(description = "Brand ID", example = "1", required = true)
             @RequestParam Long brandId
     ) {
-        return ResponseEntity.ok(this.priceUseCase.findApplicablePrice(applicationDate, productId, brandId));
+        return ResponseEntity.ok(PriceMapper.toResponse(this.priceUseCase.findApplicablePrice(applicationDate, productId, brandId)));
     }
 }

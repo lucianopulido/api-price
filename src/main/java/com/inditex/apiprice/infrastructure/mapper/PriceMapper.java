@@ -1,11 +1,12 @@
 package com.inditex.apiprice.infrastructure.mapper;
 
 import com.inditex.apiprice.domain.model.Price;
+import com.inditex.apiprice.infrastructure.dto.response.PriceResponse;
 import com.inditex.apiprice.infrastructure.entity.PriceEntity;
 
-public class PriceEntityMapper {
+public class PriceMapper {
 
-    private PriceEntityMapper() {
+    private PriceMapper() {
     }
 
     public static Price toDomain(PriceEntity entity) {
@@ -19,5 +20,16 @@ public class PriceEntityMapper {
                 .price(entity.getPrice())
                 .currency(entity.getCurrency())
                 .build();
+    }
+
+    public static PriceResponse toResponse(Price price) {
+        return new PriceResponse(
+                price.getProductId(),
+                price.getBrandId(),
+                price.getPriceList(),
+                price.getStartDate(),
+                price.getEndDate(),
+                price.getPrice()
+        );
     }
 }
