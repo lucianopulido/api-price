@@ -25,21 +25,21 @@ Basada en **Arquitectura Hexagonal (Ports and Adapters)** respetando principios 
 com.inditex.apiprice
 │
 ├── application
-│   ├── dto.response (PriceResponse)
-│   ├── mapper (PriceMapper)
 │   └── usecase (PriceUseCaseImpl)
 │
 ├── domain
 │   ├── model (Price)
-│   └── port (in/PriceUseCase, out/PriceRepositoryPort)
+│   ├── port (in/PriceUseCase, out/PriceRepositoryPort)
+│   └──exception (PriceNotFoundException)
 │
 ├── infrastructure
+│   ├── dto.response (PriceResponse)
 │   ├── adapter
 │   │   ├── in.controller (PriceController)
 │   │   └── out.database (PriceDatabaseAdapter) + repository (PriceJpaRepository)
 │   ├── entity (PriceEntity)
-│   ├── exception (GlobalExceptionHandler, PriceNotFoundException)
-│   ├── mapper (PriceEntityMapper)
+│   ├── exception (GlobalExceptionHandler)
+│   ├── mapper (PriceMapper)
 │   └── util (MessageError)
 
 ```
@@ -145,4 +145,13 @@ Se incorporó Swagger UI usando springdoc-openapi 2.8.6 para documentar automát
 Esto permite visualizar y probar la API desde http://localhost:8080/swagger-ui.html.
 
 
+📎 Acceso general al proyecto
+Todo el desarrollo se encuentra disponible en la siguiente rama y Pull Request:
 
+🔗 Repositorio: https://github.com/lucianopulido/api-price
+
+🔀 Rama de desarrollo: feature/hexagonal-architecture
+
+📥 Pull Request hacia develop: https://github.com/lucianopulido/api-price/pull/1
+
+Este enlace contiene toda la implementación, incluyendo instrucciones, arquitectura y ejemplos de uso.
