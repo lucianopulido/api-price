@@ -150,8 +150,9 @@ Todo el desarrollo se encuentra disponible en la siguiente rama y Pull Request:
 
 🔗 Repositorio: https://github.com/lucianopulido/api-price
 
-🔀 Rama de desarrollo: feature/hexagonal-architecture
+🔀 Rama de desarrollo: https://github.com/lucianopulido/api-price/tree/feature/hexagonal-architecture
 
 📥 Pull Request hacia develop: https://github.com/lucianopulido/api-price/pull/1
 
 Este enlace contiene toda la implementación, incluyendo instrucciones, arquitectura y ejemplos de uso.
+
